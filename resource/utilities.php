@@ -162,3 +162,21 @@ function signout(){
     redirectTo('index');
 }
 
+function guard(){
+
+    $isValid = true;
+    $inactive = 60 * 10;
+    $fingerprint = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+    
+    if((isset($_SESSION['fingerprint']) && $_SESSION['fingerprint'] != $fingerprint)){
+        $isValid = false;
+        signout();
+    }else if((isset($_SESSION['last active']) && (time() - $_SESSION['last active']) > $inactive) && $_SESSION['username']) {
+        $isValid = false;
+        signout();
+    }else{
+        $_SESSION['last active'] = time();
+    }
+    return $isValid;
+}
+
