@@ -22,6 +22,15 @@ if((isset($_SESSION['id']) || isset($_GET['user_identity'])) && !isset($_POST['u
         $date_joined = strftime("%b, %d, %Y", strtotime($rs["join_date"]));
     }
 
+    $user_pic = "uploads/".$username.".jpg";
+    $default = "uploads/default.jpg";
+
+    if(file_exists($user_pic)){
+        $profile_picture = $user_pic;
+    }else{
+        $profile_picture = $default;
+    }
+
     $encode_id = base64_encode("encodeuserid{$id}");
 }else if(isset($_POST['updateProfileBtn'])){
     $form_errors = array();
