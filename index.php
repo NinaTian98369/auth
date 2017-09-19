@@ -15,13 +15,6 @@ include_once 'partials/headers.php';
         <?php else: ?>
             <p class="lead">You are logged in as <?php if(isset($_SESSION['username'])) echo $_SESSION['username']; ?> <a href="logout.php">Logout</a> </p>
         <?php endif ?>
-
-        <?php echo $_SERVER['REMOTE_ADDR'] . "<br>" . $_SERVER['HTTP_USER_AGENT']; 
-              echo time();
-              if(isset($_SESSION['last active'])){
-                echo $_SESSION['last active'];
-              };
-        ?>
       </div>
 
     </div>

@@ -1,5 +1,3 @@
-
-
 <?php 
 $page_title = "User Authentication - Login Page";
 include_once 'partials/headers.php';

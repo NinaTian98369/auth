@@ -32,7 +32,7 @@
           <ul class="nav navbar-nav"><i class="hide"><?php echo guard();?></i>
             <li ><a href="index.php">Home</a></li>
             <?php if((isset($_SESSION['username']) || isCookieValid($db))): ?>
-                <li><a href="#">My Profile</a></li>
+                <li><a href="profile.php">My Profile</a></li>
                 <li><a href="logout.php">Logout</a></li>
             <?php else: ?>
                 <li><a href="#about">About</a></li>
