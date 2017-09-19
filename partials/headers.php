@@ -1,4 +1,7 @@
-<?php include_once 'resource/session.php' ?>
+<?php include_once 'resource/session.php';
+      include_once 'resource/Database.php';
+      include_once 'resource/utilities.php';
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -28,7 +31,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li ><a href="index.php">Home</a></li>
-            <?php if(isset($_SESSION['username'])): ?>
+            <?php if((isset($_SESSION['username']) || isCookieValid($db))): ?>
                 <li><a href="#">My Profile</a></li>
                 <li><a href="logout.php">Logout</a></li>
             <?php else: ?>

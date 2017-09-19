@@ -124,5 +124,41 @@ function rememberMe($user_id){
 
 function isCookieValid($db){
     $isValid = false;
+
+    if(isset($_COOKIE['rememberUserCookie'])){
+        $decryptCookieData = base64_decode($_COOKIE['rememberUserCookie']);
+        $user_id = explode("UaQteh5i4y3dntstemYODEC", $decryptCookieData);
+        $userID = $user_id[1];
+
+        $sqlQuery = "SELECT * FROM users WHERE id = :id";
+        $statement = $db->prepare($sqlQuery);
+        $statement->execute(array(':id' => $userID));
+
+        if($row = $statement->fetch()){
+            $id = $row['id'];
+            $username = $row['username'];
+
+            $_SESSION['id'] = $id;
+            $_SESSION['username'] = $username;
+            $isValid = true;
+        }else{
+            $isValid = false;
+            $this->signout();
+        }
+    }
+    return $isValid;
+}
+
+function signout(){
+    unset($_SESSION['username']);
+    unset($_SESSION['id']);
+
+    if(isset($_COOKIE['rememberUserCookie'])){
+        unset($_COOKIE['rememberUserCookie']);
+        setcookie('rememberUserCookie', null, -1, '/');
+    }
+    session_destroy();
+    session_regenerate_id(true);
+    redirectTo('index');
 }
 
